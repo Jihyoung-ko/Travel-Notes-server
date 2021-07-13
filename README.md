@@ -41,7 +41,7 @@ A private diary app to make your personal notes on travels. While you are travel
 | Method | Path         | description                | Body |
 | :----: | ------------ | -------------------------- | ---- |
 |  GET   | `/`          | landing page, signup, login|      |
-|  GET   | `/home`      | see all albumes            |      |
+|  GET   | `/home`      | see all albums            |      |
 |  GET   | `/:albumId`  | see all atricles of album  |      |
 |  POST  | `/album`     | create new album           | `{title, start date, end date, photo}`  |
 |  POST  | `/:albumId`  | edit album                 | `{title, start date, end date, photo}`  |
@@ -70,10 +70,10 @@ Album model
 ```js
 {
     title: String,
-    start date: Date,
-    end date: Date, 
+    startDate: Date,
+    endDate: Date, 
     photo: String
-    article: [{type:Schema.Types.ObjectId, ref: 'Article' }]
+    user: {type:Schema.Types.ObjectId, ref: 'User' }
 }
 ```
 Article model
@@ -83,8 +83,9 @@ Article model
     note: String,
     photo: String,
     time: Date, 
-    location: Map(?) String(?)
-    people: String
+    location: Map(?) String(?),
+    people: String,
+    album: {type:Schema.Types.ObjectId, ref: 'Album' }
 }
 ```
 
@@ -94,9 +95,7 @@ User model
 ```js
 {
     username: String,
-    email: String,
-    hashedPassword: String,
-    album: [{ type: Schema.Types.ObjectId, ref: 'Album' }]
+    hashedPassword: String
 }
 ```
 

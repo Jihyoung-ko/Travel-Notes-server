@@ -19,6 +19,6 @@ const albumSchema = new Schema(
 	}
 );
 
-const Album = mongoose.model('User', albumSchema);
+const Album = mongoose.model('Album', albumSchema);
 
 module.exports = Album;
