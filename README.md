@@ -70,8 +70,8 @@ Album model
 ```js
 {
     title: String,
-    start date: Date,
-    end date: Date, 
+    startDate: Date,
+    endDate: Date, 
     photo: String
     article: [{type:Schema.Types.ObjectId, ref: 'Article' }]
 }
@@ -83,7 +83,7 @@ Article model
     note: String,
     photo: String,
     time: Date, 
-    location: Map(?) String(?)
+    location: Map(?) String(?),
     people: String
 }
 ```
@@ -94,7 +94,6 @@ User model
 ```js
 {
     username: String,
-    email: String,
     hashedPassword: String,
     album: [{ type: Schema.Types.ObjectId, ref: 'Album' }]
 }

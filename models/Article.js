@@ -5,10 +5,10 @@ const { Schema } = mongoose;
 const articleSchema = new Schema(
 	{
 		note: String,
-    photo: String,
-    tiem: Date,
-    // location: Map(?) String(?),
-    people: String
+		photo: String,
+		tiem: Date,
+		// location: Map(?) String(?),
+		people: String,
 	},
 	{
 		timestamps: {
