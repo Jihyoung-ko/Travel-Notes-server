@@ -1,60 +1,56 @@
-# Project Name
 
-## Instructions how to start
-
-create `.env` file like the example `.env.sample`
-
-start with `npm run start-dev`
-
-**http://localhost:5000**
+# Project's name: Travel Notes
 
 ## Description
 
-Describe your project in one/two lines.
+A private diary app to make your personal notes on travels. While you are travelling you can record your thoughts with photo, video, location, date and companion.
 
-## Motivation
-
-Just a litle API for educational purposes.
-
-## User Stories
+## USER STORIES (MVP)
 
 **404** - As a user I want to see a nice 404 page when I go to a page that doesn’t exist so that I know it was my fault
 
 **500** - As a user I want to see a nice error page when the super team screws it up so that I know that is not my fault
 
-**Homepage** - As a user I want to be able to access the homepage so that I see what the app is about and login and signup
+**Landing page** - As a user I want to be able to access the landing page so that I see what the app is about and login and signup
 
-**Sign up** - As a user I want to sign up on the webpage so that I can see all the events that I could attend
+**Sign up** - As a user I want to be able to create an account to use the app and save my tasks
 
-**Login** - As a user I want to be able to log in on the webpage so that I can get back to my account
+**Login** - As a user I want to be able to log in on the webpage 
 
-**Logout** - As a user I want to be able to log out from the webpage so that I can make sure no one will access my account
+**Logout** - As a user I want to be able to log out from the webpage
 
-**Events list** - As a user I want to see all the events available so that I can choose which ones I want to attend
+**Profile** - As a user I want to be able to see my profile and edit it
 
-**Events create** - As a user I want to create an event so that I can invite others to attend
+**Home page** - As a user I want to be able to see all albums (which are collections of notes ) and create a new album
 
-**Events detail** - As a user I want to see the event details and attendee list of one event so that I can decide if I want to attend
+**Album page** - As a user I want to be able to see all articles of the album and create new article
 
-**Attend event** - As a user I want to be able to attend to event so that the organizers can count me in
+**article page** - As a user I want to be able to see the details of the article and can edit. 
 
-## Backlog
+**search page** - As a user I want to be able to search articles by text or date
 
-List of other features outside of the MVPs scope
+## BACKLOG
 
-User profile: - see my profile - upload my profile picture - see other users profile - list of events created by the user - list events the user is attending
+*User can see the world map with pins where user has visited and can click to see details*
 
-Geo Location: - add geolocation to events when creating - show event in a map in event detail page - show all events in a map in the event list page
 
-Homepage: - …
-
-## ROUTES:
+## ROUTES
 
 ### Endpoints
 
-| Method | Path         | description     | Body |
-| :----: | ------------ | --------------- | ---- |
-|  GET   | `/protected` | protected route |      |
+| Method | Path         | description                | Body |
+| :----: | ------------ | -------------------------- | ---- |
+|  GET   | `/`          | landing page, signup, login|      |
+|  GET   | `/home`      | see all albumes            |      |
+|  GET   | `/:albumId`  | see all atricles of album  |      |
+|  POST  | `/album`     | create new album           | `{title, start date, end date, photo}`  |
+|  POST  | `/:albumId`  | edit album                 | `{title, start date, end date, photo}`  |
+|  POST  | `/:albumId`  | delete album               |      |
+|  GET   | `/:articleId`| see details of article     |      |
+|  POST  | `/article`   | create new article         | `{note, photo, location, time, people} `|
+|  POST  | `/:articleId`| edit  article              | `{note, photo, location, time, people} `|
+|  POST  | `/:articleId`| delete article             |      |
+
 
 ### Auth
 
@@ -65,43 +61,63 @@ Homepage: - …
 |  POST  | `/login`  | login a user   | `{ username, password }` |
 |  GET   | `/logout` | logout session |                          |
 
-## Models
+
+
+## MODELS
+
+Album model
+
+```js
+{
+    title: String,
+    start date: Date,
+    end date: Date, 
+    photo: String
+    article: [{type:Schema.Types.ObjectId, ref: 'Article' }]
+}
+```
+Article model
+
+```js
+{
+    note: String,
+    photo: String,
+    time: Date, 
+    location: Map(?) String(?)
+    people: String
+}
+```
+
 
 User model
 
-```javascript
+```js
 {
-	username: String;
-	password: String;
+    username: String,
+    email: String,
+    hashedPassword: String,
+    album: [{ type: Schema.Types.ObjectId, ref: 'Album' }]
 }
 ```
 
-Event model
+## LINKS
 
-```javascript
-{
-	owner: ObjectId<User>
-	name: String
-	description: String
-	date: Date
-	location: String
-}
-```
+### Github project
 
-## Links
+- [Frontend project]()
+- [Backend project]()
 
-### Trello
+### Deploy links
 
-Link to Trello
+- [Frontend deploy]()
 
-### Git
+### Project kanban
+- [Github projects]()
 
-The url to your repository and to your deployed project
+### Wireframes 
 
-[Repository Link](http://github.com/)
-
-[Deploy Link](http://heroku.com/)
+- [InVision with Wireframes]()
 
 ### Slides
 
-[Slides Link](http://slides.com/)
+- [Slides]()
