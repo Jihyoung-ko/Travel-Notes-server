@@ -6,9 +6,10 @@ const articleSchema = new Schema(
 	{
 		note: String,
 		photo: String,
-		tiem: Date,
+		time: Date,
 		// location: Map(?) String(?),
 		people: String,
+		album: { type: Schema.Types.ObjectId, ref: 'Album' },
 	},
 	{
 		timestamps: {

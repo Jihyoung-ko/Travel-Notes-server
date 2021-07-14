@@ -9,7 +9,6 @@ const albumSchema = new Schema(
 		endDate: Date,
 		photo: String,
 		user: { type: Schema.Types.ObjectId, ref: 'User' },
-		article: [{ type: Schema.Types.ObjectId, ref: 'Article' }],
 	},
 	{
 		timestamps: {
