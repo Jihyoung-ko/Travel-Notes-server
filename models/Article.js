@@ -5,10 +5,11 @@ const { Schema } = mongoose;
 const articleSchema = new Schema(
 	{
 		note: String,
-    photo: String,
-    tiem: Date,
-    // location: Map(?) String(?),
-    people: String
+		photo: String,
+		time: Date,
+		// location: Map(?) String(?),
+		people: String,
+		album: { type: Schema.Types.ObjectId, ref: 'Album' },
 	},
 	{
 		timestamps: {
@@ -18,6 +19,6 @@ const articleSchema = new Schema(
 	}
 );
 
-const Article = mongoose.model('User', articleSchema);
+const Article = mongoose.model('Article', articleSchema);
 
 module.exports = Article;

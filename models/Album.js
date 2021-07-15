@@ -8,7 +8,7 @@ const albumSchema = new Schema(
 		startDate: Date,
 		endDate: Date,
 		photo: String,
-		article: [{ type: Schema.Types.ObjectId, ref: 'Article' }],
+		user: { type: Schema.Types.ObjectId, ref: 'User' },
 	},
 	{
 		timestamps: {
@@ -18,6 +18,6 @@ const albumSchema = new Schema(
 	}
 );
 
-const Album = mongoose.model('User', albumSchema);
+const Album = mongoose.model('Album', albumSchema);
 
 module.exports = Album;
