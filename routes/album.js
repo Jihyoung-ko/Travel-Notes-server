@@ -6,12 +6,12 @@ const { checkIfLoggedIn } = require('../middlewares');
 const router = express.Router();
 
 const Album = require('../models/Album');
-const User = require('../models/User');
+const Article = require('../models/Article');
 
 // Get all Albums of user
 router.get('/', checkIfLoggedIn, async (req, res, next) => {
 	try {
-		const albums = await User.findById(req.session.currentUser).populate('album');
+		const albums = await Album.find({ user: req.session.currentUser });
 		return res.status(200).json(albums);
 	} catch (error) {
 		return next(error);
@@ -81,7 +81,7 @@ router.delete('/:id', checkIfLoggedIn, async (req, res, next) => {
 router.get('/:id', checkIfLoggedIn, async (req, res, next) => {
 	const { id } = req.params;
 	try {
-		const articles = await Album.findById({ id }).populate('article');
+		const articles = await Article.find({ album: id });
 		return res.status(200).json(articles);
 	} catch (error) {
 		return next(error);
