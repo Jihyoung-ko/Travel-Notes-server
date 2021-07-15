@@ -7,11 +7,12 @@ const router = express.Router();
 
 const Article = require('../models/Article');
 
-// Get all articles of album
-router.get('/', checkIfLoggedIn, async (req, res, next) => {
+// Get details of article
+router.get('/:id', checkIfLoggedIn, async (req, res, next) => {
+	const { id } = req.params;
 	try {
-		const articles = await Article.find({ album: req });
-		return res.status(200).json(articles);
+		const article = await Article.findById(id);
+		return res.status(200).json(article);
 	} catch (error) {
 		return next(error);
 	}
@@ -19,7 +20,7 @@ router.get('/', checkIfLoggedIn, async (req, res, next) => {
 
 // Add new article
 router.post('/', checkIfLoggedIn, async (req, res, next) => {
-	const { note, photo, time, location, people } = req.body;
+	const { note, photo, time, location, people, album } = req.body;
 	try {
 		const newArticle = await Article.create({
 			note,
@@ -27,7 +28,7 @@ router.post('/', checkIfLoggedIn, async (req, res, next) => {
 			time,
 			location,
 			people,
-			album: req
+			album,
 		});
 		return res.status(200).json(newArticle);
 	} catch (error) {

@@ -6,6 +6,7 @@ const { checkIfLoggedIn } = require('../middlewares');
 const router = express.Router();
 
 const Album = require('../models/Album');
+const Article = require('../models/Article');
 
 // Get all Albums of user
 router.get('/', checkIfLoggedIn, async (req, res, next) => {
@@ -32,7 +33,7 @@ router.post('/', checkIfLoggedIn, async (req, res, next) => {
 			photo,
 			user: req.session.currentUser,
 		});
-		return res.json(newAlbum);
+		return res.status(200).json(newAlbum);
 	} catch (error) {
 		return next(error);
 	}
@@ -55,7 +56,7 @@ router.put('/:id', checkIfLoggedIn, async (req, res, next) => {
 			return next(createError(404));
 		}
 		const updatedAlbum = await Album.findByIdAndUpdate(id, { $set: albumFields }, { new: true });
-		return res.json(updatedAlbum);
+		return res.status(200).json(updatedAlbum);
 	} catch (error) {
 		return next(error);
 	}
@@ -71,6 +72,17 @@ router.delete('/:id', checkIfLoggedIn, async (req, res, next) => {
 		}
 		await Album.findByIdAndRemove(id);
 		return res.send({ mgs: 'Album removed' });
+	} catch (error) {
+		return next(error);
+	}
+});
+
+// See details of album(all articles of album)
+router.get('/:id', checkIfLoggedIn, async (req, res, next) => {
+	const { id } = req.params;
+	try {
+		const articles = await Article.find({ album_id: id });
+		return res.status(200).json(articles);
 	} catch (error) {
 		return next(error);
 	}
