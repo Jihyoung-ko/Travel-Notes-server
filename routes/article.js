@@ -54,7 +54,7 @@ router.put('/:id', checkIfLoggedIn, async (req, res, next) => {
 			return next(createError(404));
 		}
 		const updatedArticle = await Article.findByIdAndUpdate(id, { $set: articleFields }, { new: true });
-		return res.json(updatedArticle);
+		return res.status(200).json(updatedArticle);
 	} catch (error) {
 		return next(error);
 	}
