@@ -7,6 +7,16 @@ const router = express.Router();
 
 const Article = require('../models/Article');
 
+// Get all articles
+router.get('/', checkIfLoggedIn, async (req, res, next) => {
+	try {
+		const articles = await Article.find();
+		return res.status(200).json(articles);
+	} catch (error) {
+		next(error);
+	}
+})
+
 // Get details of article
 router.get('/:id', checkIfLoggedIn, async (req, res, next) => {
 	const { id } = req.params;
