@@ -7,7 +7,7 @@ const articleSchema = new Schema(
 		note: String,
 		photo: String,
 		time: Date,
-		// location: Map(?) String(?),
+		location: String,
 		people: String,
 		album: { type: Schema.Types.ObjectId, ref: 'Album' },
 	},
