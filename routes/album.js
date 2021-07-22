@@ -88,4 +88,14 @@ router.get('/:id', checkIfLoggedIn, async (req, res, next) => {
 	}
 });
 
+router.get('/:id/detail', checkIfLoggedIn, async (req, res, next) => {
+	const { id } = req.params;
+	try {
+		const album = await Album.findById(id);
+		return res.status(200).json(album);
+	} catch (error) {
+		return next(error);
+	}
+});
+
 module.exports = router;
