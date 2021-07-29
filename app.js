@@ -13,6 +13,7 @@ const authRouter = require('./routes/auth');
 const demoRouter = require('./routes/demo');
 const albumRouter = require('./routes/album');
 const articleRouter = require('./routes/article');
+const uploadRouter = require('./routes/upload');
 
 async function setupApp() {
 	const app = express();
@@ -47,6 +48,7 @@ async function setupApp() {
 	app.use('/protected', demoRouter);
 	app.use('/album', albumRouter);
 	app.use('/article', articleRouter);
+	app.use('/api', uploadRouter);
 
 	// catch 404 and forward to error handler
 	app.use((req, res, next) => {
