@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
@@ -27,8 +26,8 @@ async function setupApp() {
 	app.use(logger('dev'));
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: false }));
-	app.use(cookieParser());
 	app.use(express.static(path.join(__dirname, 'public')));
+	app.set('trust proxy', 1);
 	app.use(
 		session({
 			store: MongoStore.create({
@@ -40,6 +39,8 @@ async function setupApp() {
 			saveUninitialized: true,
 			cookie: {
 				maxAge: 24 * 60 * 60 * 1000,
+				sameSite: process.env.COOKIES_SAMESITE === 'true' ? 'lax' : 'none',
+				secure: process.env.COOKIES_SAMESITE !== 'true',
 			},
 		})
 	);
