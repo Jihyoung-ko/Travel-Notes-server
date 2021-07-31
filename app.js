@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
@@ -11,6 +11,9 @@ require('dotenv').config();
 
 const authRouter = require('./routes/auth');
 const demoRouter = require('./routes/demo');
+const albumRouter = require('./routes/album');
+const articleRouter = require('./routes/article');
+const uploadRouter = require('./routes/upload');
 
 async function setupApp() {
 	const app = express();
@@ -24,8 +27,9 @@ async function setupApp() {
 	app.use(logger('dev'));
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: false }));
-	app.use(cookieParser());
+	// app.use(cookieParser());
 	app.use(express.static(path.join(__dirname, 'public')));
+	app.set('trust proxy', 1);
 	app.use(
 		session({
 			store: MongoStore.create({
@@ -37,12 +41,17 @@ async function setupApp() {
 			saveUninitialized: true,
 			cookie: {
 				maxAge: 24 * 60 * 60 * 1000,
+				sameSite: process.env.COOKIES_SAMESITE === 'true' ? 'lax' : 'none',
+				secure: process.env.COOKIES_SAMESITE !== 'true',
 			},
 		})
 	);
 
 	app.use('/', authRouter);
 	app.use('/protected', demoRouter);
+	app.use('/album', albumRouter);
+	app.use('/article', articleRouter);
+	app.use('/api', uploadRouter);
 
 	// catch 404 and forward to error handler
 	app.use((req, res, next) => {
